@@ -1,0 +1,27 @@
+@charset "EUC-KR";
+
+body {
+	height: 1039px !important;
+}
+
+#noticeDetail {
+	margin-left: 0px;
+}
+
+#noticeHeader {
+	margin-bottom: 5px !important;
+}
+
+.iconSet {
+	padding-right: 7px;
+}
+
+#detailBox {
+	height: 350px;
+	overflow:auto;
+	margin-bottom: 10px !important;
+}
+
+#updateBtn button {
+	margin: 3px;
+}

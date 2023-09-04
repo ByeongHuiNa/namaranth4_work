@@ -1,0 +1,38 @@
+@charset "EUC-KR";
+
+body {
+	height: 1039px !important;
+}
+
+#registerBox {
+    padding : 30px !important;
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}
+
+#exampleFormControlTextarea1 {
+	width: 95%;
+	resize: none;
+	overflow: auto;
+	border: solid 1px #e9e9e9;
+	margin-bottom: 5px;
+	height: 375px;
+}
+
+#header {
+	margin-bottom: 5px;
+}
+
+.noticeInput {
+	width: 90%;
+}
+
+#noticeContent textarea {
+	border-width: 2px;
+    border-style: solid;
+}
+
+#getRegister {
+    margin-right: 40px;
+}
+

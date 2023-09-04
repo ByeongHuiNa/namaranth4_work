@@ -1,0 +1,21 @@
+.appside{
+	border-right: 1px solid #bdbdbd;
+	height: 1000px;
+}
+
+
+.card-header {
+    	display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+}
+
+.regi_btn{
+	margin-left: auto;
+	width: 120px;
+}
+
+
+tbody tr {
+	height: 30px;
+}

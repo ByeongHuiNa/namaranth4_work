@@ -1,0 +1,35 @@
+@charset "EUC-KR";
+
+body {
+	height: 1039px !important;
+}
+
+#noticePage {
+	width: 98%;	
+	margin-left: 10px;	
+}
+
+#noticeTable {
+	width: 95%;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#registerBtn button {
+	margin-right: 43px;
+}
+
+#noticeBody {
+	padding-bottom: 50px;
+}
+ td a {
+ 	color: #37474f !important;
+ }
+ 
+ td a:hover {
+ 	color: #1abc9c !important;
+ }
+ 
+ .iconSet {
+	padding-right: 7px;
+}

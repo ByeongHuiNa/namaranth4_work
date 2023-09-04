@@ -1,0 +1,223 @@
+@charset "EUC-KR";
+
+li, td{
+	cursor: pointer;	
+}
+
+ul#noticeList li:hover, ul#noteList li:hover, tr:hover td {
+    color: #1abc9c !important;
+}
+
+li {
+	padding-bottom: 5px;
+}
+
+#searchForm {
+	height: 30px;
+}
+
+#inputBox {
+	width: 85%;
+}
+
+#mypage{
+	margin-bottom: 0px;
+	height: 379px;
+	overflow-y :auto;
+}
+
+#alertMsg {
+	padding: 5px 0px; 
+}
+
+#email {
+	height: 420px;
+}
+
+.longBox {
+	height: 400px;
+}
+
+.mainCard {
+    position: relative;
+    display: flex;
+	height: 270px;
+	overflow-y :auto;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0.125);
+    border-radius: 2px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s ease-in-out;
+    border-top: 3px solid #8CDDCD;
+    margin-bottom: 10px !important;
+}
+
+.paddingSet {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+.myinfo {
+	text-align: center;
+}
+
+.attenBtn {
+	display: flex;
+	width:100%;
+}
+
+.attenBtn > button {
+	width: inherit;
+	font-size: 17px;
+	font-color: #d1f2eb;
+	border: none;
+}
+
+.attenBtn > button:hover {
+	backgroud-color: #d1f2eb";
+}
+
+.chk-option > label {
+	align-items: center;
+}
+
+#emailTable th, #emailTable td {
+	padding: 10px;
+	font-size: 15px;
+}
+
+.emailBox {
+	height: 379px !important;
+	margin-bottom: 10px !important;
+	overflow-y :auto;
+}
+
+#docComplete {
+	border: none !important;
+	padding: 0px !important;
+}
+
+#docComplete > div {
+	border: none;
+	padding-top: 0px;
+	
+}
+
+#docComplete > div > div {
+	padding-left: 10px;
+}
+
+
+.docBtn {
+	color: #1abc9c !important;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff !important;
+    background-color: #1abc9c;
+}
+
+.card-header h5 {
+	font-size: 16px !important;
+}
+
+.readDoc {
+	padding-top: 0px !important;
+}
+
+.readDoc > ul {
+	padding-left: 0px;
+}
+
+.readDoc > ul li {
+	list-style-type: none;
+}
+
+.iconSet {
+	padding-right: 7px;
+}
+
+.listIconSet {
+	padding-right: 3px;
+}
+
+.cardList {
+	display: flex;
+    padding-top: 10px;
+    align-items: center;
+    padding-bottom: 5px !important;
+}
+
+#myTab li > a {
+	color: #1abc9c;
+}
+
+/* #myTab li > a:focus {
+	color: #ffffff;
+	background-color: #1abc9c;
+} */
+
+#noteContent {
+	width: 95%;
+	resize: none;
+	overflow: auto;
+	border: solid 1px #e9e9e9;
+	margin-bottom: 5px;
+	height: 375px;
+}
+
+#noteContentUpdate {
+	border: solid 1px #e9e9e9;
+	resize: none;
+	height: 300px;
+	overflow: auto;
+}
+
+#smallGroup {
+	display: flex;
+}
+
+#vbigGroup {
+	display: flex;
+	padding-left: 0px;
+ 	padding-right: 0px;
+}
+
+ #bigGroup1 {
+ 	flex-grow:2;
+ 	padding-left: 0px;
+ 	padding-right: 0px;
+ }
+ 
+ #bigGroup2 {
+ 	display:flex;
+ 	flex-grow:1;
+ }
+ 
+ #noteTitle, #noteTitleUpdate {
+ 	width: 95%;
+ 	height: 35px;
+ 	border: solid 1px #e9e9e9;
+ 	margin-bottom: 5px;
+ }
+ 
+ 
+#profileImg {
+	padding-bottom: 8px;	
+}
+
+#profileImg > img {
+    margin: auto;
+    display: block;
+    height: 90px;
+}
+ 
+ 
+ 
+ 

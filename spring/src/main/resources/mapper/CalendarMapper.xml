@@ -4,7 +4,100 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.CalendarMapper">
+    <resultMap type="org.namaranth.domain.CalendarVO" id="calendarMap">
+        <id property="cal_no" column="cal_no"/>
+        <result property="cal_name" column="cal_name"/>
+        <result property="cal_color" column="cal_color"/>
+        <result property="cal_con" column="cal_con"/>
+        <collection property="users" ofType="org.namaranth.domain.UsersVO">
+            <id property="user_no" column="user_no"/>
+            <result property="user_name" column="user_name"/>
+            <result property="user_birth" column="user_birth"/>
+            <result property="user_phone" column="user_phone"/>
+            <result property="user_position" column="user_position"/>
+            <result property="user_email" column="user_email"/>
+            <result property="user_pwd" column="user_pwd"/>
+            <result property="user_profile" column="user_profile"/>
+            <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+                <id column="dept_no" property="dept_no"/>
+                <result column="dept_name" property="dept_name"/>
+                <result column="dept_local" property="dept_local"/>
+            </collection>
+        </collection>
+    </resultMap>
 
+
+    <resultMap type="org.namaranth.domain.UsersVO" id="userMap">
+        <id property="user_no" column="user_no"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_birth" column="user_birth"/>
+        <result property="user_phone" column="user_phone"/>
+        <result property="user_position" column="user_position"/>
+        <result property="user_email" column="user_email"/>
+        <result property="user_pwd" column="user_pwd"/>
+        <result property="user_profile" column="user_profile"/>
+        <!--        <collection property="authList" resultMap="authMap"></collection>-->
+        <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+            <id column="dept_no" property="dept_no"/>
+            <result column="dept_name" property="dept_name"/>
+            <result column="dept_local" property="dept_local"/>
+        </collection>
+    </resultMap>
+
+    <select id="getList" resultMap="calendarMap">
+        select distinct c.cal_no, c.cal_name, c.cal_color, c.user_no
+        from calendar c
+                 left join cal_parti cp on c.cal_no = cp.cal_no
+        where c.user_no = 1 or cp.user_no = 1
+        order by c.cal_no
+    </select>
+
+    <select id="read" resultMap="calendarMap">
+        select * from calendar
+        where cal_no = #{cal_no}
+    </select>
+
+    <select id="readUserFromCalParti" resultMap="userMap">
+        select u.*, d.dept_name
+        from users u
+                 inner join cal_parti cp on u.user_no = cp.user_no
+                 inner join dept d on u.dept_no = d.dept_no
+        where cp.cal_no = #{cal_no}
+    </select>
+
+    <select id="isSharedCal" resultType="int">
+        select count(*) from cal_parti where cal_no = #{cal_no}
+    </select>
+
+
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="cal_no" order="BEFORE" resultType="int">
+            select seq_cal.nextval from dual
+        </selectKey>
+        insert into calendar (cal_no, user_no, cal_name, cal_color, cal_con)
+        values (#{cal_no}, 1, #{cal_name}, #{cal_color}, #{cal_con})
+    </insert>
+
+    <insert id="insertCalParti">
+        insert into cal_parti (cal_no, user_no)
+        values (#{cal_no}, #{calParti_no})
+    </insert>
+
+    <delete id="deleteCalParti">
+        delete from cal_parti where cal_no = #{cal_no}
+    </delete>
+
+    <delete id="deleteCal">
+        delete from calendar where cal_no = #{cal_no}
+    </delete>
+
+    <update id="updateCal">
+        update calendar
+        set cal_name = #{cal_name},
+            cal_color = #{cal_color},
+            cal_con = #{cal_con}
+        where cal_no = #{cal_no}
+    </update>
 
 
 </mapper>

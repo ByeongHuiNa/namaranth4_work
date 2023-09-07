@@ -20,7 +20,7 @@ const GetMailPage = () =>{
     //const history = useHistory();
     
     const getMail = async (mail_no) => {
-        await axios.get(`http://localhost:8081/getmail/${mail_no}`).then((res)=> {
+        await axios.get(`/getmail/${mail_no}`).then((res)=> {
          console.log(res.data);
          setMail(res.data);
         //  setUserNo(res.data.user_no);

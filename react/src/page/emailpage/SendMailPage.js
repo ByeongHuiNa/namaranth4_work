@@ -11,7 +11,7 @@ const SendMailPage = () =>{
             <li className="breadcrumb-item"><a href="#!">쪽지함</a></li>
             <li className="breadcrumb-item"><a href="#!">보낸쪽지함</a></li>
         </ul>
-        <MailList getUrl="http://localhost:8081/sendmail"/>
+        <MailList getUrl="/sendmail"/>
     </div>
     );
 };

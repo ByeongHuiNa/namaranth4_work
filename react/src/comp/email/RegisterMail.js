@@ -34,7 +34,7 @@ const RegisterMail = () =>{
            
         };
         
-        axios.post(`http://localhost:8081/register/${receiver_no}`, formData)
+        axios.post(`/register/${receiver_no}`, formData)
           .then((response) => {
             console.log("성공");
             window.location.href = "http://localhost:3000/email/all";
@@ -59,7 +59,7 @@ const RegisterMail = () =>{
            
         };
         
-        axios.post(`http://localhost:8081/tsregister`, formData)
+        axios.post(`/tsregister`, formData)
           .then((response) => {
             console.log("성공");
             window.location.href = "http://localhost:3000/email/all";

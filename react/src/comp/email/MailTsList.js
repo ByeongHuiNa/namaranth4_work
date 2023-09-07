@@ -9,7 +9,7 @@ const MailTsList = ({}) =>{
     const [mails, setMails] = useState([]);
 
     const getMail = async () => {
-      await axios.get("http://localhost:8081/tsmail").then((res) => {
+      await axios.get("/tsmail").then((res) => {
         console.log(res.data);
         setMails(res.data);
       })

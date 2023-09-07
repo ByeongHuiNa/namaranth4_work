@@ -11,7 +11,7 @@ const AllMailPage = () =>{
             <li className="breadcrumb-item"><a href="#!">쪽지함</a></li>
             <li className="breadcrumb-item"><a href="#!">전체쪽지함</a></li>
         </ul>
-        <MailList getUrl="http://localhost:8081/allmail"/>
+        <MailList getUrl="/allmail"/>
     </div>
     );
 };

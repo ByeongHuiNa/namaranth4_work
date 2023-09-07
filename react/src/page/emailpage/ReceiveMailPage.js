@@ -11,7 +11,7 @@ const ReceiveMailPage = () =>{
             <li className="breadcrumb-item"><a href="#!">쪽지함</a></li>
             <li className="breadcrumb-item"><a href="#!">받은쪽지함</a></li>
         </ul>
-        <MailList getUrl="http://localhost:8081/receivemail"/>
+        <MailList getUrl="/receivemail"/>
     </div>
     );
 };

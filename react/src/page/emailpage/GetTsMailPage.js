@@ -13,7 +13,7 @@ const GetTsMailPage = () =>{
     const [mailts_content, setMailTsContent] = useState('');
 
     const getTsMail = async (mailts_no) => {
-        await axios.get(`http://localhost:8081/gettsmail/${mailts_no}`).then((res)=> {
+        await axios.get(`/gettsmail/${mailts_no}`).then((res)=> {
          console.log(res.data);
          setTsMail(res.data);
          setSendNo(res.data.user_no);

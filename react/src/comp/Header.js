@@ -6,8 +6,8 @@ const Header = () =>{
                 <div className="m-header">
                     <a className="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
                     <a href="#!" className="b-brand">
-                        <img src="./bootstrap/images/logow1.png" alt="" className="logo logoImg" style={{height:40}} />
-                        <img src="./bootstrap/images/logo-icon.png" alt="" className="logo-thumb" />
+                        <img src={`bootstrap/images/logow1.png`} alt="" className="logo logoImg" style={{height:40}} />
+                        <img src={`bootstrap/images/logo-icon.png`} alt="" className="logo-thumb" />
                     </a>
                     <a href="#!" className="mob-toggler">
                         <i className="feather icon-more-vertical"></i>

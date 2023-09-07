@@ -1,6 +1,15 @@
+import { useState } from "react";
 import {Link} from "react-router-dom";
 
 const Sidebar = () =>{
+
+    const [listCheck, setListCheck] = useState(false);
+
+    const listHandler = (event) =>{
+        console.log(listCheck);
+        event.preventDefault();
+        setListCheck(true);
+    };
 
 
     
@@ -49,9 +58,9 @@ const Sidebar = () =>{
                             <li className="nav-item">
                                 <Link to="/email/register" className="nav-link "><span className="pcoded-micon"><i className="bi bi-pencil-square" style={{color:"white"}}></i></span><span className="pcoded-mtext">메일작성</span></Link>
                             </li>
-                            <li className="nav-item pcoded-hasmenu">
+                            <li className="nav-item pcoded-hasmenu" onClick={listHandler}>
                                 <a href="#!" className="nav-link "><span className="pcoded-micon"><i className="bi bi-envelope" style={{color:"white"}}></i></span><span className="pcoded-mtext">메일함</span></a>
-                                <ul className="pcoded-submenu">
+                                <ul className="pcoded-submenu" style={listCheck?{display:"block"}:{display:"none"}}>
                                     <li><Link to="/email">전체메일함</Link></li>
                                     <li><Link to="/email/receivemail">수신메일함</Link></li>
                                     <li><Link to="/email/sendmail">발신메일함</Link></li>

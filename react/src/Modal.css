@@ -1,0 +1,13 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-dialog {
+    margin: 0;
+    
+    top: 25%;
+    left: 40%;
+    
+  }

@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.table-wrapper {
+  margin-left: auto;
+}
+
+.rc_btn{
+margin-top: 15px;
+margin-left: 57%;
+}
+
+#tb{
+  width:240px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#tb th, #tb td{
+  border: 1px solid #000000;
+  width: 110px;
+}
+
+.sec_tb{
+  border:none;
+}
+
+.ck-editor__editable{
+  min-height: 340px;
+}

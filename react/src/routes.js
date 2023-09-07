@@ -3,6 +3,8 @@ import MainPage from "./page/MainPage";
 import NoticePage from "./page/NoticePage";
 import EmailPage from "./page/EmailPage";
 import AppPage from "./page/AppPage";
+import AppViewPage from "./page/AppViewPage";
+import AppEditPage from "./page/AppEditPage";
 
 const routes = [
   {
@@ -24,6 +26,14 @@ const routes = [
   {
     path: '/app',
     component: AppPage
+  },
+  {
+    path: '/app/edit',
+    component: AppEditPage
+  },
+  {
+    path: '/app/:id',
+    component: AppViewPage
   },
 ]
 

@@ -9,21 +9,22 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
 
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
 
-  const userHandler = () =>{
-    axios.get('http://localhost:8081/users').then((res)=>{
-      console.log(res.data);
-      setUsers(res.data);
-    });
-  };
+  // const userHandler = () =>{
+  //   axios.get('http://localhost:8081/users').then((res)=>{
+  //     console.log(res.data);
+  //     setUsers(res.data);
+  //   });
+  // };
 
-  useEffect(()=>{
-    userHandler();
-  },[]);
+  // useEffect(()=>{
+  //   userHandler();
+  // },[]);
 
   return (
 

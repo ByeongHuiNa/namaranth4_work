@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.UserMapper">
-
     <!-- resultMap : DB 조회 결과를 객체 구조로 변환 -->
     <!-- 사용자 -->
     <resultMap type="org.namaranth.domain.UsersVO" id="userMap">
@@ -16,7 +15,7 @@
         <result property="user_email" column="user_email"/>
         <result property="user_pwd" column="user_pwd"/>
         <result property="user_profile" column="user_profile"/>
-        <collection property="authList" resultMap="authMap"></collection>
+        <collection property="authList" resultMap="authMap"/>
         <collection property="dept" ofType="org.namaranth.domain.DeptVO">
             <id column="dept_no" property="dept_no"/>
             <result column="dept_name" property="dept_name"/>
@@ -57,7 +56,7 @@
             <result property="user_email" column="user_email"/>
             <result property="user_pwd" column="user_pwd"/>
             <result property="user_profile" column="user_profile"/>
-            <collection property="authList" resultMap="authMap"></collection>
+            <collection property="authList" resultMap="authMap"/>
             <collection property="dept" ofType="org.namaranth.domain.DeptVO">
                 <id column="dept_no" property="dept_no"/>
                 <result column="dept_name" property="dept_name"/>
@@ -91,36 +90,50 @@
         </collection>
     </resultMap>
 
+    <!-- 전체 User 목록  -->
     <select id="list" resultType="org.namaranth.domain.UsersVO">
         select * from users
     </select>
 
+    <!-- 전체 User 목록, 부서 이름도 함께 조회 -->
     <select id="listUser" resultMap="userMap">
         select d.dept_name, u.user_no, u.user_name, u.user_position, u.user_email from users u, dept d
         where u.dept_no = d.dept_no
     </select>
 
-    <select id="readUser" resultMap="userMap">
+    <!-- User 이메일로 조회 -->
+    <select id="searchUserByEmail" resultMap="userMap">
         SELECT *
         FROM users users LEFT OUTER JOIN auth auth
                                          ON users.user_no = auth.user_no
         WHERE users.user_email = #{user_email}
     </select>
 
+    <!-- User 번호로 조회 -->
+    <select id="searchUserById" resultMap="userMap">
+        SELECT *
+        FROM users users LEFT OUTER JOIN auth auth
+                                         ON users.user_no = auth.user_no
+        WHERE users.user_no= #{user_no}
+    </select>
+
+    <!-- User 이름으로 조회 -->
     <select id="searchUserByName" resultMap="userMap">
-        SELECT users.user_name, users.user_phone, users.user_position, users.user_email, dept.dept_name
+        SELECT users.user_name, users.user_phone, users.user_position, users.user_email, users.user_profile, dept.dept_name
         FROM users users
                  LEFT OUTER JOIN dept dept
                                  ON users.dept_no = dept.dept_no
         WHERE users.user_name = #{user_name}
     </select>
 
+    <!-- User 이메일로 부서명 조회 -->
     <select id="readDept" resultType="String">
         SELECT dept_name FROM dept JOIN users
                                         ON dept.dept_no = users.dept_no
         WHERE users.user_email = #{user_email}
     </select>
 
+    <!-- User 번호로 이메일 목록 조회 -->
     <select id="readEmail" resultMap="emailMap">
         SELECT mail.mail_title, mail.mail_content, mail.mail_regdate, users.user_name
         FROM mail mail LEFT OUTER JOIN mail_rcver rcver
@@ -128,8 +141,10 @@
                        left outer join users users
                                        on mail.user_no = users.user_no
         WHERE rcver.user_no = #{user_no}
+        ORDER BY mail.mail_regdate DESC
     </select>
 
+    <!-- User 번호로 문서 목록 조회 -->
     <select id="readDoc" resultMap="documentsMap">
         SELECT doc.doc_title, doc.doc_content, doc.doc_regdate, doc.doc_status, users.user_no
         FROM document doc LEFT OUTER JOIN users users
@@ -137,7 +152,7 @@
         where doc.user_no = #{user_no}
     </select>
 
-    <!-- 특정 사용자의 오늘 일정 조회 -->
+    <!-- User 번호로 일정 목록 조회 -->
     <select id="readSch" resultMap="scheduleMap">
       	<![CDATA[
         select distinct s.sch_no, s.sch_name, s.sch_start, s.sch_end, s.sch_place, s.sch_noti, s.sch_con, s.sch_allday, c.cal_color, c.cal_no
@@ -145,10 +160,9 @@
                  left join calendar c on s.cal_no = c.cal_no
                  left join sch_parti sp on s.sch_no = sp.sch_no
         where (s.user_no = #{user_no} or sp.user_no = #{user_no})
-          AND (TRUNC(s.sch_start) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(s.sch_end))
+        AND (TRUNC(s.sch_start) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(s.sch_end))
         ]]>
    </select>
-
 
 
 </mapper>

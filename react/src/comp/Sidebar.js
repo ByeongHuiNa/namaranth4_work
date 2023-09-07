@@ -1,5 +1,8 @@
 import {Link} from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
+<<<<<<< HEAD
 
 const Sidebar = () =>{
     
@@ -11,8 +14,23 @@ const Sidebar = () =>{
             
             <nav className="pcoded-navbar  ">
                 <div className="navbar-wrapper  ">
-                    <div className="navbar-content scroll-div " >
+=======
+const Sidebar = () =>{
+    const history = useHistory();
 
+    const logout = () => {
+            alert('로그아웃 성공');
+            localStorage.removeItem("token");
+            localStorage.removeItem("key");
+            history.push('/login');
+    }
+
+    return (
+        <div className="setFont">
+            <nav className="pcoded-navbar" style={{height:"1250px"}}>
+                <div className="navbar-wrapper">
+>>>>>>> lyn
+                    <div className="navbar-content scroll-div " >
                         <div className="">
                             <div className="main-menu-header" >
                                 <img className="img-radius" id="userprofile" src="" alt="User-Profile-Image" />
@@ -26,12 +44,6 @@ const Sidebar = () =>{
                                 <ul className="list-unstyled">
                                     <li className="list-group-item"><Link to="user-profile.html"><i className="feather icon-user m-r-5"></i>마이페이지</Link></li>
                                     <li className="list-group-item"><Link to="#!"><i className="feather icon-settings m-r-5"></i>회원정보수정</Link></li>
-                                    <li className="list-group-item">
-                                        <form action="/logout" method="post">
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                            <button id="logoutBtn"><i className="feather icon-log-out m-r-5"></i>로그아웃</button>
-                                        </form>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -41,10 +53,13 @@ const Sidebar = () =>{
                                 <label>Main</label>
                             </li>
                             <li className="nav-item">
-                                <Link to="/main" className="nav-link "><span className="pcoded-micon"><i className="feather icon-home"></i></span><span className="pcoded-mtext">메인페이지</span></Link>
+                                <Link to="/" className="nav-link "><span className="pcoded-micon"><i className="feather icon-home"></i></span><span className="pcoded-mtext">메인페이지</span></Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/notice/list" className="nav-link "><span className="pcoded-micon"><i className="feather icon-file-text"></i></span><span className="pcoded-mtext">공지사항</span></Link>
+                            </li>
+                            <li className="nav-item pl-1">
+                                <button id="logoutBtn" onClick={logout}><span className="pcoded-micon"><i className="feather icon-log-out mr-2"></i></span>로그아웃</button>
                             </li>
                             <li className="nav-item pcoded-menu-caption">
                                 <label>E-mail</label>

@@ -10,7 +10,7 @@ File: style.css
 @import url(plugins/animate.min.css);
 
 @font-face {
-    font-family: 'Open Sans';
+  font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -2710,16 +2710,44 @@ fieldset:disabled a.btn {
     pointer-events: none;
 }
 
+#loginMsg {
+    font-family: "EliceDigitalBaeum-Bd";
+    font-size: 42px;
+    color: #5c636a;
+}
+
+.loginInput {
+    font-family: "NanumSquareNeo-Variable";
+}
+
+.loginMsg2 {
+    font-family: "NanumSquareNeo-Variable";
+    text-decoration-line: none;
+    color: #8e99a3;
+}
+
+#loginBtn {
+    color: #fff;
+    font-family: "NanumSquareNeo-Variable";
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    height: 50px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1abc9c;
     border-color: #1abc9c;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, #loginBtn:hover {
     color: #fff;
     background-color: #159a80;
     border-color: #148f77;
+}
+
+.setFont {
+    font-family: "NanumSquareNeo-Variable";
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -4799,6 +4827,17 @@ input[type="button"].btn-block {
     color: #fff;
 }
 
+#loginBox{
+    width: 420px;
+    justify-items: center;
+}
+
+#loginLogo{
+    width: 420px;
+    justify-items: center;
+    margin-left: 18px;
+}
+
 .card {
     position: relative;
     display: flex;
@@ -5961,7 +6000,7 @@ a.close.disabled {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 999;
     display: none;
     width: 100%;
     height: 100%;
@@ -5979,6 +6018,62 @@ a.close.disabled {
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
     transform: scale(0.7);
+}
+
+/* modal창 */
+.modalBody {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    left: 650px;
+    padding-top: 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+.smallModalBody {
+    position: absolute;
+    width: 430px;
+    height: 240px;
+    left: 650px;
+    padding-top: 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+.smallModalBody div.card {
+    width: 400px;
+    height: 200px;
+}
+
+#SmallModalCloseBtn {
+    border: none;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
+}
+
+#modalCloseBtn {
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    border: none;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
+    font-size: 20px;
+}
+
+#modalCloseBtn:hover {
+    cursor: pointer;
+}
+
+.modal_background{
+    position: fixed;
+    top:0; left: 0; bottom: 0; right: 0;
+    background: rgba(0, 0, 0, 0.8);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -18392,7 +18487,7 @@ strong {
     right: auto;
     bottom: auto;
     left: auto;
-    z-index: 1;
+    z-index: 999;
     display: block;
 }
 
@@ -21219,7 +21314,7 @@ pre[class*=language-]:before {
     display: block;
     height: 56px;
     width: 100%;
-    z-index: 1023;
+    z-index: 1;
     position: fixed;
     border-radius: 0;
     top: 56px;
@@ -25536,7 +25631,6 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
 
 .nav {
     position: relative;
-    z-index: 1;
 }
 
 .feed-card h6 {
@@ -30189,6 +30283,7 @@ new-task label input[type=checkbox] {
     background-color: transparent;
     color: #d0dcda;
     padding: 0px;
+    margin-left: 14px;
 }
 
 body {

@@ -6,7 +6,7 @@ const DocumentList = (props) => {
 
     const getDocument = (id) => {
         history.push(`app/${id}`);
-        //axios.get(`http://localhost:8081/docboard/${id}`);
+        //axios.get(`/docboard/${id}`);
     }
     
     const editDocument = () =>{

@@ -19,31 +19,31 @@ const AppViewPage = () =>{
     const [isAppCompDocument, setAppCompDoucment] = useState(false);
     
     const getDocu = async (id) =>{
-        await axios.get(`http://localhost:8081/docboard/${id}`).then((res)=>{
+        await axios.get(`/docboard/${id}`).then((res)=>{
             console.log(res.data);
             setDocument(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/ref`).then((res)=>{
+        await axios.get(`/docboard/${id}/ref`).then((res)=>{
             console.log(res.data);
             setRefList(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/first-app`).then((res)=>{
+        await axios.get(`/docboard/${id}/first-app`).then((res)=>{
             console.log(res.data);
             setFirstAppUser(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/second-app`).then((res)=>{
+        await axios.get(`/docboard/${id}/second-app`).then((res)=>{
             console.log(res.data);
             setSecondAppUser(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/get-app-list`).then((res)=>{
+        await axios.get(`/docboard/${id}/get-app-list`).then((res)=>{
             console.log(res.data);
             setAppList(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/get-rej-list`).then((res)=>{
+        await axios.get(`/docboard/${id}/get-rej-list`).then((res)=>{
             console.log(res.data);
             setRejList(res.data);
         });
-        await axios.get(`http://localhost:8081/docboard/${id}/get-rej-content`).then((res)=>{
+        await axios.get(`/docboard/${id}/get-rej-content`).then((res)=>{
             console.log(res.data);
             setRejContent(res.data);
         });

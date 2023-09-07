@@ -17,7 +17,7 @@ const DocumentModal = (props)=>{
     const [refAddList, setRefAddList] = useState([]);
     const submitHandler = ()=>{
         if(refAddList.length!==0){
-            axios.post(`http://localhost:8081/docboard/${id}/post-ref-list`, refAddList
+            axios.post(`/docboard/${id}/post-ref-list`, refAddList
             ).then(()=>{
                 closeRefModal();
             });

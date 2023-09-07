@@ -164,6 +164,151 @@
         ]]>
    </select>
 
+    <!-- resultMap : DB 조회 결과를 객체 구조로 변환 -->
+    <!-- 사용자 -->
+    <resultMap type="org.namaranth.domain.UsersVO" id="userMap">
+        <id property="user_no" column="user_no"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_birth" column="user_birth"/>
+        <result property="user_phone" column="user_phone"/>
+        <result property="user_position" column="user_position"/>
+        <result property="user_email" column="user_email"/>
+        <result property="user_pwd" column="user_pwd"/>
+        <result property="user_profile" column="user_profile"/>
+<!--        <collection property="authList" resultMap="authMap"></collection>-->
+        <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+            <id column="dept_no" property="dept_no"/>
+            <result column="dept_name" property="dept_name"/>
+            <result column="dept_local" property="dept_local"/>
+        </collection>
+    </resultMap>
+
+    <!-- 권한 -->
+<!--    <resultMap type="org.namaranth.domain.AuthVO" id="authMap">-->
+<!--        <result property="user_no" column="user_no"/>-->
+<!--        <result property="auth" column="auth"/>-->
+<!--    </resultMap>-->
+
+    <!-- 이메일 -->
+<!--    <resultMap type="org.namaranth.domain.EmailVO" id="emailMap">-->
+<!--        <result property="mail_no" column="mail_no"/>-->
+<!--        <result property="user_name" column="user_name"/>-->
+<!--        <result property="user_email" column="user_email"/>-->
+<!--        <result property="user_no" column="user_no"/>-->
+<!--        <result property="mail_title" column="mail_title"/>-->
+<!--        <result property="mail_content" column="mail_content"/>-->
+<!--        <result property="mail_regdate" column="mail_regdate"/>-->
+<!--    </resultMap>-->
+
+    <!-- 문서 -->
+<!--    <resultMap type="org.namaranth.domain.DocumentVO" id="documentsMap">-->
+<!--        <id column="doc_no" property="doc_no"/>-->
+<!--        <result column="doc_title" property="doc_title"/>-->
+<!--        <result column="doc_regdate" property="doc_regdate"/>-->
+<!--        <result column="doc_content" property="doc_content"/>-->
+<!--        <result column="doc_status" property="doc_status"/>-->
+<!--        <collection property="user" ofType="org.namaranth.domain.UsersVO">-->
+<!--            <id property="user_no" column="user_no"/>-->
+<!--            <result property="user_name" column="user_name"/>-->
+<!--            <result property="user_birth" column="user_birth"/>-->
+<!--            <result property="user_phone" column="user_phone"/>-->
+<!--            <result property="user_position" column="user_position"/>-->
+<!--            <result property="user_email" column="user_email"/>-->
+<!--            <result property="user_pwd" column="user_pwd"/>-->
+<!--            <result property="user_profile" column="user_profile"/>-->
+<!--&lt;!&ndash;            <collection property="authList" resultMap="authMap"></collection>&ndash;&gt;-->
+<!--            <collection property="dept" ofType="org.namaranth.domain.DeptVO">-->
+<!--                <id column="dept_no" property="dept_no"/>-->
+<!--                <result column="dept_name" property="dept_name"/>-->
+<!--                <result column="dept_local" property="dept_local"/>-->
+<!--            </collection>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+    <!-- 일정 -->
+    <resultMap type="org.namaranth.domain.ScheduleVO" id="scheduleMap">
+        <id property="sch_no" column="sch_no"/>
+        <result property="sch_name" column="sch_name"/>
+        <result property="sch_start" column="sch_start"/>
+        <result property="sch_end" column="sch_end"/>
+        <result property="sch_place" column="sch_place"/>
+        <result property="sch_noti" column="sch_noti"/>
+        <result property="sch_con" column="sch_con"/>
+        <result property="sch_allday" column="sch_allday"/>
+        <collection property="calendar" ofType="org.namaranth.domain.CalendarVO">
+            <id property="cal_no" column="cal_no"/>
+            <result property="user_no" column="user_no"/>
+            <result property="cal_name" column="cal_name"/>
+            <result property="cal_color" column="cal_color"/>
+            <result property="cal_noti" column="cal_noti"/>
+            <result property="cal_con" column="cal_con"/>
+        </collection>
+        <collection property="users" ofType="org.namaranth.domain.UsersVO">
+            <id property="user_no" column="user_no"/>
+            <result property="user_name" column="user_name"/>
+            <result property="user_birth" column="user_birth"/>
+        </collection>
+    </resultMap>
+
+    <select id="list" resultType="org.namaranth.domain.UsersVO">
+        select * from users
+    </select>
+
+    <select id="listUser" resultMap="userMap">
+        select d.dept_name, u.user_no, u.user_name, u.user_position, u.user_email from users u, dept d
+        where u.dept_no = d.dept_no
+    </select>
+
+
+
+<!--    <select id="readUser" resultMap="userMap">-->
+<!--        SELECT *-->
+<!--        FROM users users LEFT OUTER JOIN auth auth-->
+<!--                                         ON users.user_no = auth.user_no-->
+<!--        WHERE users.user_email = #{user_email}-->
+<!--    </select>-->
+
+<!--    <select id="searchUserByName" resultMap="userMap">-->
+<!--        SELECT users.user_name, users.user_phone, users.user_position, users.user_email, dept.dept_name-->
+<!--        FROM users users-->
+<!--                 LEFT OUTER JOIN dept dept-->
+<!--                                 ON users.dept_no = dept.dept_no-->
+<!--        WHERE users.user_name = #{user_name}-->
+<!--    </select>-->
+
+<!--    <select id="readDept" resultType="String">-->
+<!--        SELECT dept_name FROM dept JOIN users-->
+<!--                                        ON dept.dept_no = users.dept_no-->
+<!--        WHERE users.user_email = #{user_email}-->
+<!--    </select>-->
+
+<!--    <select id="readEmail" resultMap="emailMap">-->
+<!--        SELECT mail.mail_title, mail.mail_content, mail.mail_regdate, users.user_name-->
+<!--        FROM mail mail LEFT OUTER JOIN mail_rcver rcver-->
+<!--                                       ON mail.mail_no = rcver.mail_no-->
+<!--                       left outer join users users-->
+<!--                                       on mail.user_no = users.user_no-->
+<!--        WHERE rcver.user_no = #{user_no}-->
+<!--    </select>-->
+
+<!--    <select id="readDoc" resultMap="documentsMap">-->
+<!--        SELECT doc.doc_title, doc.doc_content, doc.doc_regdate, doc.doc_status, users.user_no-->
+<!--        FROM document doc LEFT OUTER JOIN users users-->
+<!--                                          ON doc.user_no = users.user_no-->
+<!--        where doc.user_no = #{user_no}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 특정 사용자의 오늘 일정 조회 &ndash;&gt;-->
+<!--    <select id="readSch" resultMap="scheduleMap">-->
+<!--      	<![CDATA[-->
+<!--        select distinct s.sch_no, s.sch_name, s.sch_start, s.sch_end, s.sch_place, s.sch_noti, s.sch_con, s.sch_allday, c.cal_color, c.cal_no-->
+<!--        from schedule s-->
+<!--                 left join calendar c on s.cal_no = c.cal_no-->
+<!--                 left join sch_parti sp on s.sch_no = sp.sch_no-->
+<!--        where (s.user_no = #{user_no} or sp.user_no = #{user_no})-->
+<!--          AND (TRUNC(s.sch_start) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(s.sch_end))-->
+<!--        ]]>-->
+<!--   </select>-->
 
 </mapper>
 

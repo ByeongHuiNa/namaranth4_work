@@ -5,7 +5,59 @@
 
 <mapper namespace="org.namaranth.mapper.ScheduleMapper">
 
+    <resultMap type="org.namaranth.domain.ScheduleVO" id="scheduleMap">
+        <id property="sch_no" column="sch_no"/>
+        <result property="sch_name" column="sch_name"/>
+        <result property="sch_start" column="sch_start"/>
+        <result property="sch_end" column="sch_end"/>
+        <result property="sch_place" column="sch_place"/>
+        <result property="sch_noti" column="sch_noti"/>
+        <result property="sch_con" column="sch_con"/>
+        <result property="sch_allday" column="sch_allday"/>
+        <collection property="calendar" ofType="org.namaranth.domain.CalendarVO">
+            <id property="cal_no" column="cal_no"/>
+            <result property="user_no" column="user_no"/>
+            <result property="cal_name" column="cal_name"/>
+            <result property="cal_color" column="cal_color"/>
+            <result property="cal_noti" column="cal_noti"/>
+            <result property="cal_con" column="cal_con"/>
+        </collection>
+        <collection property="users" ofType="org.namaranth.domain.UsersVO">
+            <id property="user_no" column="user_no"/>
+            <result property="user_name" column="user_name"/>
+            <result property="user_birth" column="user_birth"/>
+        </collection>
+    </resultMap>
 
+    <select id="getSchedule" resultMap="scheduleMap">
+        select distinct s.sch_no, s.sch_name, s.sch_start, s.sch_end, s.sch_place, s.sch_noti, s.sch_con, s.sch_allday, c.cal_color, c.cal_no
+        from schedule s
+                 left join calendar c on s.cal_no = c.cal_no
+                 left join sch_parti sp on s.sch_no = sp.sch_no
+        where s.user_no = 1 or sp.user_no = 1
+
+    </select>
+
+    <!-- <insert id="insertSch">
+        insert into schedule (sch_no, cal_no, user_no, sch_name, sch_start, sch_end, sch_place, sch_con, sch_allday)
+        values (seq_sch.nextval, #{calendar.cal_no}, #{users.user_no}, #{sch_name}, #{sch_start}, #{sch_end}, #{sch_place}, #{sch_con},
+        #{sch_allday})
+    </insert> -->
+
+
+
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="sch_no" order="BEFORE" resultType="int">
+            select seq_sch.nextval from dual
+        </selectKey>
+        insert into schedule (sch_no, cal_no, user_no, sch_name, sch_start, sch_end, sch_place, sch_con, sch_allday)
+        values (#{sch_no}, #{calendar.cal_no}, #{users.user_no}, #{sch_name}, #{sch_start}, #{sch_end}, #{sch_place}, #{sch_con},
+        #{sch_allday})
+    </insert>
+
+    <delete id="deleteSchWithCal">
+        delete from schedule where cal_no = #{cal_no}
+    </delete>
 
 </mapper>
 

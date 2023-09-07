@@ -15,6 +15,8 @@ import NoticeDetailPage from "./page/notice/NoticeDetailPage";
 import NoticeRegisterPage from "./page/notice/NoticeRegisterPage";
 import NoticeEditPage from "./page/notice/NoticeEditPage";
 import AppPage from "./page/AppPage";
+import AppViewPage from "./page/AppViewPage";
+import AppEditPage from "./page/AppEditPage";
 
 
 const routes = [
@@ -87,8 +89,14 @@ const routes = [
     path: '/app',
     component: AppPage
   },
- 
-  
+  {
+    path: '/app/edit',
+    component: AppEditPage
+  },
+  {
+    path: '/app/:id',
+    component: AppViewPage
+  },
 ]
 
 export default routes;

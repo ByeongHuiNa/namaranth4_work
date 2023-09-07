@@ -73,4 +73,10 @@ public class UserServiceImpl implements UserService{
         return userMapper.readSch(user_no);
     }
 
+    UserMapper mapper;
+
+    @Override
+    public List<UsersVO> getList() {
+        return mapper.listUser();
+    }
 }

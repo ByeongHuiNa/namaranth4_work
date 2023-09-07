@@ -5,10 +5,294 @@
 
 <mapper namespace="org.namaranth.mapper.DocumentMapper">
 
+    <resultMap type="org.namaranth.domain.DocumentVO" id="documentMap">
+        <id column="doc_no" property="doc_no"/>
+        <result column="doc_title" property="doc_title"/>
+        <result column="doc_content" property="doc_content"/>
+        <result column="doc_regdate" property="doc_regdate"/>
+        <result column="doc_status" property="doc_status"/>
+        <collection property="user" ofType="org.namaranth.domain.UsersVO">
+            <id column="user_no" property="user_no"/>
+            <result column="user_name" property="user_name"/>
+            <result column="user_birth" property="user_birth"/>
+            <result column="user_phone" property="user_phone"/>
+            <result column="user_position" property="user_position"/>
+            <result column="user_email" property="user_email"/>
+            <result column="user_pwd" property="user_pwd"/>
+            <result column="user_profile" property="user_profile"/>
+            <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+                <id column="dept_no" property="dept_no"/>
+                <result column="dept_name" property="dept_name"/>
+                <result column="dept_local" property="dept_local"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <resultMap type="org.namaranth.domain.UsersVO" id="usersMap">
+        <id property="user_no" column="user_no"/>
+        <result property="user_name" column="user_name"/>
+        <result property="user_birth" column="user_birth"/>
+        <result property="user_phone" column="user_phone"/>
+        <result property="user_position" column="user_position"/>
+        <result property="user_email" column="user_email"/>
+        <result property="user_pwd" column="user_pwd"/>
+        <result property="user_profile" column="user_profile"/>
+        <collection property="authList" resultMap="authMaps"></collection>
+        <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+            <id column="dept_no" property="dept_no"/>
+            <result column="dept_name" property="dept_name"/>
+            <result column="dept_local" property="dept_local"/>
+        </collection>
+    </resultMap>
+
+    <resultMap type="org.namaranth.domain.AuthVO" id="authMaps">
+        <result property="user_no" column="user_no"/>
+        <result property="auth" column="auth"/>
+    </resultMap>
+
+    <!-- 문서 갯수 가져오기 -->
+    <select id="getDocTotal" resultType="int">
+        select count(dc.doc_no)
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and u.user_no = #{user_no}
+    </select>
+
+
+    <!-- 문서 조회, 리스트 -->
+    <select id="get" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where dc.doc_no = #{doc_no}
+          and u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+    </select>
+
+    <select id="docList" resultMap="documentMap">
+	<![CDATA[
+        SELECT *
+        FROM (SELECT dc.doc_no,
+                     dc.doc_title,
+                     dc.doc_content,
+                     dc.doc_regdate,
+                     dc.doc_status,
+                     u.user_name,
+                     d.dept_name,
+                     ROWNUM AS rn
+              FROM document dc,
+                   users u,
+                   dept d
+              WHERE u.user_no = dc.user_no
+                AND u.dept_no = d.dept_no
+                AND u.user_no = #{user_no}
+                AND ROWNUM <= #{cri.pageNum} * #{cri.amount}
+              ORDER BY doc_no DESC)
+        WHERE rn > (#{cri.pageNum} - 1) * #{cri.amount}
+        ]]>
+</select>
+
+
+    <select id="doclist" parameterType="int" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and u.user_no = #{user_no}
+        order by doc_no desc
+    </select>
+
+
+    <select id="appReqList" parameterType="int" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and dc.doc_no in
+              (select doc_no
+               from doc_appreq
+               where user_no = #{user_no}
+                 and doc_no not in (select doc_no from doc_app where user_no = #{user_no}))
+          and doc_status not in '반려'
+        order by doc_no desc
+    </select>
+
+    <select id="appRejList" parameterType="int" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and doc_status = '반려'
+          and u.user_no = #{user_no}
+        order by doc_no desc
+    </select>
+
+    <select id="appComplList" parameterType="int" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and doc_status = '결재 완료'
+          and u.user_no = #{user_no}
+        order by doc_no desc
+    </select>
+
+    <select id="docFirstApp" parameterType="int" resultMap="usersMap">
+        select user_name, u.user_no, user_position
+        from doc_appreq ar,
+             document d,
+             users u
+        where ar.doc_no = d.doc_no
+          and u.user_no = ar.user_no
+          and ar.doc_appdegree = '1차'
+          and d.doc_no = #{doc_no }
+    </select>
+    <select id="docSecondApp" parameterType="int" resultMap="usersMap">
+        select user_name, u.user_no, user_position
+        from doc_appreq ar,
+             document d,
+             users u
+        where ar.doc_no = d.doc_no
+          and u.user_no = ar.user_no
+          and ar.doc_appdegree = '2차'
+          and d.doc_no = #{doc_no }
+    </select>
+
+    <!--<select id="appCheck" resultType="int">
+        select user_no
+        from doc_app
+        where doc_no = #{doc_no}
+          and user_no = #{user_no}
+    </select>
+
+    <select id="rejCheck" resultType="int">
+        select user_no
+        from doc_rej
+        where doc_no = #{doc_no}
+          and user_no = #{user_no}
+    </select>-->
+
+    <select id="appCheck" resultType="Integer">
+        select user_no
+        from doc_app
+        where doc_no = #{doc_no}
+    </select>
+
+    <select id="rejCheck" resultType="Integer">
+        select user_no
+        from doc_rej
+        where doc_no = #{doc_no}
+    </select>
+
+    <select id="refBoardList" resultMap="documentMap" parameterType="int">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+          and doc_no in (select doc_no from doc_ref where user_no = #{user_no})
+        order by doc_no desc
+    </select>
+
+
+    <!-- 결재 -->
+    <insert id="docAppInsert">
+        <selectKey resultType="int" keyProperty="docapp_no" order="BEFORE">
+            select seq_docapp.nextval from dual
+        </selectKey>
+        insert into doc_app (docapp_no, doc_no, user_no) VALUES (#{docapp_no}, #{doc_no}, #{user_no})
+    </insert>
+
+    <select id="getDocAppDegree" resultType="String">
+        select doc_appdegree
+        from doc_appreq
+        where doc_no = #{doc_no}
+          and user_no = #{user_no}
+    </select>
+
+    <update id="docAppUpdate" parameterType="int">
+        update document
+        set doc_status = '결재 완료'
+        where doc_no = #{doc_no}
+    </update>
+
+    <!-- 반려 -->
+    <insert id="docRejInsert">
+        <selectKey resultType="int" keyProperty="docrej_no" order="BEFORE">
+            select seq_docrej.nextval from dual
+        </selectKey>
+        insert into doc_rej (docrej_no, doc_no, user_no, docrej_content) VALUES (#{docrej_no}, #{doc_no}, #{user_no},
+        #{docrej_content})
+    </insert>
+
+    <update id="docRejUpdate" parameterType="int">
+        update document
+        set doc_status = '반려'
+        where doc_no = #{doc_no}
+    </update>
+
+    <select id="rejContent" parameterType="int" resultType="String">
+        select docrej_content
+        from doc_rej
+        where doc_no = #{doc_no}
+    </select>
+
+
+    <select id="list" resultMap="documentMap">
+        select dc.doc_no, dc.doc_title, dc.doc_content, dc.doc_regdate, dc.doc_status, u.user_name, d.dept_name
+        from document dc,
+             users u,
+             dept d
+        where u.user_no = dc.user_no
+          and u.dept_no = d.dept_no
+        order by doc_no desc
+    </select>
+
+    <insert id="writeDoc" parameterType="org.namaranth.domain.DocumentVO">
+        <selectKey resultType="int" keyProperty="doc_no" order="BEFORE">
+            select seq_doc.nextval from dual
+        </selectKey>
+        insert into document (doc_no, user_no, doc_title, doc_content)
+        values (#{doc_no}, #{user.user_no}, #{doc_title}, #{doc_content})
+    </insert>
+
+    <insert id="insertFisrtApp">
+        insert into doc_appreq
+        values (#{doc_no}, #{user_no}, '1차')
+    </insert>
+
+    <insert id="insertSecondApp">
+        insert into doc_appreq
+        values (#{doc_no}, #{user_no}, '2차')
+    </insert>
+
+    <!-- 참조 -->
+    <insert id="insertRef">
+        insert into doc_ref (doc_no, user_no)
+        values (#{doc_no}, #{user_no})
+    </insert>
+
+    <select id="selectRefList" parameterType="int" resultMap="usersMap">
+        select u.user_email, user_name, user_position, dept_name
+        from users u,
+             dept d
+        where d.dept_no = u.dept_no
+          and u.user_no in
+              (select user_no from doc_ref where doc_no = #{doc_no})
+    </select>
 
 
 </mapper>
-
-
-
-

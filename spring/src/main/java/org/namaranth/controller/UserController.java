@@ -41,4 +41,9 @@ public class UserController {
         System.out.println("**" + userService.getUserById(user_no));
         return userService.getUserById(user_no);
     }
+    
+    @GetMapping("/userlist")
+    public List<UsersVO> userList(){
+        return userService.getList();
+    }
 }

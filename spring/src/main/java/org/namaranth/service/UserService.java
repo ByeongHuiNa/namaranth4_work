@@ -19,4 +19,5 @@ public interface UserService {
     public List<EmailVO> getEmails(int user_no);
     public List<DocumentVO> getDoc(int user_no);
     public List<ScheduleVO> getSchedules(int user_no);
+    public List<UsersVO> getList();
 }

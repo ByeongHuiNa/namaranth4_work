@@ -12,7 +12,7 @@ const AutoSearch = (props) =>{
 
 
     const getUser = () =>{
-        axios.get('/userlist').then((res)=>{
+        axios.get("/userlist").then((res)=>{
             console.log(res.data);
             setUserIndex(res.data);
         })

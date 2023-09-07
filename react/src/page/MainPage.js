@@ -8,6 +8,7 @@ import Attendance from "../comp/main/Attendance";
 import ScheduleMainList from "../comp/main/ScheduleMainList";
 import Modal from "../comp/Modal";
 import SearchResult from "../comp/main/SearchResult";
+import "../comp/main/main.css"
 
 const MainPage = () => {
     const [user, setUser] = useState({});

@@ -4,9 +4,58 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.NoteMapper">
+    <resultMap type="org.namaranth.domain.NoteVO" id="noteMap">
+        <id property="note_no" column="note_no"/>
+        <result property="note_title" column="note_title"/>
+        <result property="note_content" column="note_content"/>
+        <collection property="user" ofType="org.namaranth.domain.UsersVO">
+            <id column="user_no" property="user_no"/>
+            <result column="user_name" property="user_name"/>
+            <result column="user_birth" property="user_birth"/>
+            <result column="user_phone" property="user_phone"/>
+            <result column="user_position" property="user_position"/>
+            <result column="user_email" property="user_email"/>
+            <result column="user_pwd" property="user_pwd"/>
+            <result column="user_profile" property="user_profile"/>
+            <collection property="authList" ofType="org.namaranth.domain.AuthVO">
+                <result property="user_no" column="user_no"/>
+                <result property="auth" column="auth"/>
+            </collection>
+            <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+                <id column="dept_no" property="dept_no"/>
+                <result column="dept_name" property="dept_name"/>
+                <result column="dept_local" property="dept_local"/>
+            </collection>
+        </collection>
+    </resultMap>
 
+    <!-- 메모장 조회 (특정 사용자) -->
+    <select id="noteList" resultMap="noteMap">
+        select * from note where user_no = #{user_no} order by note_no DESC
+    </select>
 
+    <!-- 메모장 조회 (특정 번호 : 상세조회) -->
+    <select id="noteDetail" resultMap="noteMap">
+        select * from note where note_no = #{note_no}
+    </select>
 
+    <!-- 메모장 등록 -->
+    <insert id="noteInsert">
+        insert into note(note_no, user_no, note_title, note_content)
+        values(seq_memo.nextval, #{user_no}, #{note_title}, #{note_content})
+    </insert>
+
+    <!-- 메모장 삭제 -->
+    <delete id="noteDelete">
+        delete from note where note_no = #{note_no}
+    </delete>
+
+    <!-- 메모장 수정 -->
+    <update id="noteUpdate" parameterType="org.namaranth.domain.NoteVO">
+        update note
+        set note_title = #{note_title}, note_content = #{note_content}
+        where note_no = #{note_no}
+    </update>
 </mapper>
 
 

@@ -4,6 +4,22 @@ li, td{
 	cursor: pointer;	
 }
 
+div#approval-card div.readDoc, #scheduleList {
+	margin-top: 10px;
+}
+
+div#approval-card div.readDoc ul li {
+	padding-top: 5px;
+}
+
+ul#noteList {
+	margin-top: 12px;
+}
+
+ul#noteList li {
+	padding-top: 5px;
+}
+
 ul#noticeList li:hover, ul#noteList li:hover, tr:hover td {
     color: #1abc9c !important;
 }
@@ -16,13 +32,9 @@ li {
 	height: 30px;
 }
 
-#inputBox {
-	width: 85%;
-}
-
 #mypage{
 	margin-bottom: 0px;
-	height: 379px;
+	height: 410px;
 	overflow-y :auto;
 }
 
@@ -54,12 +66,7 @@ li {
     margin-bottom: 20px;
     transition: box-shadow 0.2s ease-in-out;
     border-top: 3px solid #8CDDCD;
-    margin-bottom: 10px !important;
-}
-
-.paddingSet {
-	padding-left: 5px !important;
-	padding-right: 5px !important;
+    margin-bottom: 10px;
 }
 
 .myinfo {
@@ -68,18 +75,21 @@ li {
 
 .attenBtn {
 	display: flex;
-	width:100%;
+	width: 100%;
+	height: 53px;
 }
 
 .attenBtn > button {
 	width: inherit;
 	font-size: 17px;
-	font-color: #d1f2eb;
+	color: #1abc9c;
 	border: none;
 }
 
-.attenBtn > button:hover {
-	backgroud-color: #d1f2eb";
+.attenBtn > button:hover, .noteBtn button {
+    color: #fff;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
 }
 
 .chk-option > label {
@@ -92,7 +102,7 @@ li {
 }
 
 .emailBox {
-	height: 379px !important;
+	height: 410px !important;
 	margin-bottom: 10px !important;
 	overflow-y :auto;
 }
@@ -112,7 +122,6 @@ li {
 	padding-left: 10px;
 }
 
-
 .docBtn {
 	color: #1abc9c !important;
 }
@@ -127,15 +136,36 @@ li {
 	font-size: 16px !important;
 }
 
-.readDoc {
+.readDoc, .readDoc2 {
 	padding-top: 0px !important;
+	overflow: auto;
 }
 
-.readDoc > ul {
+.readDoc::-webkit-scrollbar, .readDoc2::-webkit-scrollbar {
+    width: 3px;
+}
+
+.readDoc::-webkit-scrollbar-track, .readDoc2::-webkit-scrollbar-track {
+    background-color: white;
+}
+
+.readDoc::-webkit-scrollbar-thumb, .readDoc2::-webkit-scrollbar-thumb {
+    box-shadow: inset 5px 0 15px #1abc9c;
+}
+
+.readDoc > ul, .readDoc2 > ul {
 	padding-left: 0px;
 }
 
-.readDoc > ul li {
+div#notice-card div.readDoc > ul li {
+	padding-top: 8px;
+}
+
+#scheduleList li {
+	padding-top: 8px;
+}
+
+.readDoc > ul li, .readDoc2 > ul li {
 	list-style-type: none;
 }
 
@@ -151,17 +181,28 @@ li {
 	display: flex;
     padding-top: 10px;
     align-items: center;
-    padding-bottom: 5px !important;
 }
 
-#myTab li > a {
-	color: #1abc9c;
+#noteUpdateTitleBox, #noteUpdateTitleBox > div {
+	border: none;
 }
 
-/* #myTab li > a:focus {
-	color: #ffffff;
-	background-color: #1abc9c;
-} */
+#noteUpdateContentBox {
+	height:133px; 
+	text-align:left;
+	border:none;
+	box-shadow: none;
+}
+
+#noteUpdateContent {
+	width: 100%;
+	resize: none;
+	overflow: auto;
+	margin-top:10px;
+	margin-bottom: 5px;
+	height: 119px;
+
+}
 
 #noteContent {
 	width: 95%;
@@ -207,9 +248,9 @@ li {
  	margin-bottom: 5px;
  }
  
- 
 #profileImg {
-	padding-bottom: 8px;	
+	height: 75px;
+	margin-bottom: 20px;	
 }
 
 #profileImg > img {
@@ -218,6 +259,74 @@ li {
     height: 90px;
 }
  
+.tabBtn {
+	left: 0px;
+	margin-top: 12px;
+}
+
+#myTab {
+ border: none;
+}
+
+#myTab li > a {
+	color: #1abc9c;
+	border-radius: 5px;
+}
+
+#pills-tab a:hover, #myTab a:hover, #searchUsers:hover, .noteBtn button:hover {
+	color: white !important;
+    background-color: #159a80;
+    border-color: #159a80;
+}
+
+#pills-tab li a.active, #myTab li a.active, #searchUsers, #noteRegister {
+	color: white;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+}
+
+
+#pills-tab a:focus, #myTab a:focus {
+	color: #fff;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+}
+
+.paddingSet {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
  
- 
- 
+.card-header {
+	height: 55px;
+}
+
+.main-card-body {
+	height: 300px;
+	padding-left: 0px;
+}
+
+.main-card {
+	margin-bottom: 5px;
+}
+
+#profile {
+	margin-top: 20px;
+}
+
+#notice-card, #approval-card {
+	margin-bottom: 10px;
+}
+
+.Modal {
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }

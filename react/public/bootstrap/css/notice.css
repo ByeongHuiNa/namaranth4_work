@@ -1,0 +1,125 @@
+@charset "EUC-KR";
+
+body {
+	height: 1039px !important;
+	font-family: "NanumSquareNeo-Variable";
+}
+
+#noticeBody, #noticeDetail {
+	padding-bottom: 50px;
+	font-family: "NanumSquareNeo-Variable";
+}
+
+#noticeHeader, #registerBox {
+	font-family: "NanumSquareNeo-Variable";
+}
+
+#noticePage {
+	width: 98%;	
+	margin-left: 10px;	
+}
+
+#noticeTable {
+	width: 97%;
+	margin-right: 12px;
+	margin-left: 17px;
+}
+
+#registerBtn button {
+	margin-right: 20px;
+	height: 42px;
+	width: 65px;
+	border: none;
+	background-color: #1abc9c;
+	/* background-color:#e2e5e8;
+	color: black; */
+}
+
+#noticeDetail {
+	margin-left: 0px;
+}
+
+#noticeHeader {
+	margin-bottom: 5px !important;
+}
+
+.iconSet {
+	padding-right: 7px;
+}
+
+#detailBox div.card-header-right {
+	padding-top: 6px;
+}
+
+#detailBox {
+	height: 350px;
+	overflow:auto;
+	margin-bottom: 10px !important;
+}
+
+#updateBtn {
+	margin-right: 45px;
+}
+
+#detailBtn
+
+#registerBox .card-body {
+	padding-left: 55px;
+}
+
+#updateBtn button, #detailBtn button {
+	margin: 3px;
+	height: 42px;
+	width: 65px;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
+}
+
+td a {
+	color: #37474f !important;
+}
+
+td a:hover {
+	color: #1abc9c !important;
+}
+
+.iconSet {
+   padding-right: 7px;
+}
+
+#registerBox {
+    padding : 30px !important;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+}
+
+#exampleFormControlTextarea1 {
+	width: 95%;
+	resize: none;
+	overflow: auto;
+	border: solid 1px #e9e9e9;
+	margin-bottom: 5px;
+	height: 375px;
+}
+
+#header {
+	margin-bottom: 5px;
+}
+
+.noticeInput {
+	width: 90%;
+}
+
+#noticeContent textarea {
+	border-width: 2px;
+    border-style: solid;
+}
+
+.noticeAlarm {
+	width: 97%;
+    margin-left: 19px;
+}
+
+#noticeBody > div {
+	overflow: hidden;
+}

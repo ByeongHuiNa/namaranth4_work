@@ -4,9 +4,73 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.NoticeMapper">
+    <!-- 공지사항 -->
+    <resultMap type="org.namaranth.domain.NoticeVO" id="noticeMap">
+        <id property="noti_no" column="noti_no"/>
+        <result property="noti_title" column="noti_title"/>
+        <result property="noti_content" column="noti_content"/>
+        <result property="noti_regdate" column="noti_regdate"/>
+        <collection property="user" ofType="org.namaranth.domain.UsersVO">
+            <id column="user_no" property="user_no"/>
+            <result column="user_name" property="user_name"/>
+            <result column="user_birth" property="user_birth"/>
+            <result column="user_phone" property="user_phone"/>
+            <result column="user_position" property="user_position"/>
+            <result column="user_email" property="user_email"/>
+            <result column="user_pwd" property="user_pwd"/>
+            <result column="user_profile" property="user_profile"/>
+            <collection property="authList" resultMap="authMap"/>
+            <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+                <id column="dept_no" property="dept_no"/>
+                <result column="dept_name" property="dept_name"/>
+                <result column="dept_local" property="dept_local"/>
+            </collection>
+        </collection>
+    </resultMap>
 
+    <!-- 권한 -->
+    <resultMap type="org.namaranth.domain.AuthVO" id="authMap">
+        <result property="user_no" column="user_no"/>
+        <result property="auth" column="auth"/>
+    </resultMap>
 
+    <!-- 공지사항 상세 조회 -->
+    <select id="noticeDetail" resultMap="noticeMap">
+        SELECT noti.noti_no, noti.noti_title, noti.noti_content, noti.noti_regdate,
+               users.user_no, users.user_name, users.user_birth, users.user_phone,
+               users.user_position, users.user_email, users.user_pwd, users.user_profile
+        FROM notice noti
+        LEFT OUTER JOIN users users ON noti.user_no = users.user_no
+        WHERE noti.noti_no = #{noti_no}
+    </select>
 
+    <!-- 공지사항 전체 조회 -->
+    <select id="noticeList" resultMap="noticeMap">
+        SELECT noti.noti_no, noti.noti_title, noti.noti_content, noti.noti_regdate,
+               users.user_no, users.user_name, users.user_birth, users.user_phone,
+               users.user_position, users.user_email, users.user_pwd, users.user_profile
+        FROM notice noti
+        LEFT OUTER JOIN users users ON noti.user_no = users.user_no
+        ORDER BY noti_no DESC
+    </select>
+
+    <!-- 공지사항 등록 -->
+    <insert id="noticeInsert" parameterType="org.namaranth.domain.NoticeVO">
+        INSERT into notice(noti_no, user_no, noti_title, noti_content, noti_regdate)
+        values(seq_noti.nextval, #{user_no}, #{noti_title}, #{noti_content}, SYSDATE)
+    </insert>
+
+    <!-- 공지사항 삭제 -->
+    <delete id="noticeDelete">
+        delete from notice where noti_no = #{noti_no}
+    </delete>
+
+    <!-- 공지사항 수정 -->
+    <update id="noticeUpdate">
+        UPDATE notice
+        SET noti_title=#{noti_title}, noti_content=#{noti_content}, noti_regdate=SYSDATE
+        WHERE noti_no = #{noti_no}
+    </update>
 </mapper>
 
 

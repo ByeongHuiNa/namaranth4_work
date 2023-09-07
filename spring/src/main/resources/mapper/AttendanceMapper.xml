@@ -4,9 +4,79 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.AttendanceMapper">
+    <resultMap type="org.namaranth.domain.AttendVO" id="attendanceMap">
+        <id property="at_no" column="at_no"/>
+        <result property="start_time" column="start_time"/>
+        <result property="end_time" column="end_time"/>
+        <collection property="user" ofType="org.namaranth.domain.UsersVO">
+            <id column="user_no" property="user_no"/>
+            <result column="user_name" property="user_name"/>
+            <result column="user_birth" property="user_birth"/>
+            <result column="user_phone" property="user_phone"/>
+            <result column="user_position" property="user_position"/>
+            <result column="user_email" property="user_email"/>
+            <result column="user_pwd" property="user_pwd"/>
+            <result column="user_profile" property="user_profile"/>
+            <collection property="authList" resultMap="authMap"/>
+            <collection property="dept" ofType="org.namaranth.domain.DeptVO">
+                <id column="dept_no" property="dept_no"/>
+                <result column="dept_name" property="dept_name"/>
+                <result column="dept_local" property="dept_local"/>
+            </collection>
+        </collection>
+    </resultMap>
 
+    <!-- 권한 -->
+    <resultMap type="org.namaranth.domain.AuthVO" id="authMap">
+        <result property="user_no" column="user_no"/>
+        <result property="auth" column="auth"/>
+    </resultMap>
 
+    <!-- 한 사용자의 출퇴근 목록 : 최근 7일 -->
+    <select id="attendList" resultMap="attendanceMap">
+        SELECT * FROM attendance
+        WHERE user_no = #{user_no}
+        AND start_time >= TO_CHAR(SYSDATE-7, 'YYYYMMDD')
+        ORDER BY start_time;
+    </select>
 
+    <!-- 한 사용자의 오늘 날짜 출퇴근 -->
+    <select id="attend" resultMap="attendanceMap">
+        SELECT * FROM attendance
+        WHERE user_no = #{user_no}
+          AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') = TO_CHAR(start_time, 'YYYY-MM-DD')
+    </select>
+
+    <!-- 한 사용자가 오늘 날짜 출근이 되어있는지 확인 : 사용자 번호 받아서 -->
+    <select id="attendStartTodayCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM attendance
+        WHERE user_no = #{user_no} AND TRUNC(start_time) = TRUNC(SYSDATE)
+    </select>
+
+    <!-- 한 사용자가 오늘 날짜 퇴근이 되어있는지 확인 : 사용자 번호 받아서 -->
+    <select id="attendEndTodayCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM attendance
+        WHERE user_no = #{user_no} AND TRUNC(end_time) = TRUNC(SYSDATE)
+    </select>
+
+    <!-- 한 사용자가 해당 날짜 출근이 되어있는지 확인 : 사용자 번호와 출근 시간 받아서 -->
+    <select id="attendCount" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM attendance
+        WHERE user_no = #{user_no} AND TRUNC(start_time) = TRUNC(#{start_time})
+    </select>
+
+    <!-- 출근 -->
+    <insert id="attendStart">
+        INSERT into attendance(at_no, user_no, start_time)
+        values(seq_attend.nextval, #{user_no}, #{start_time})
+    </insert>
+
+    <!-- 퇴근 -->
+    <update id="attendEnd">
+        UPDATE attendance
+        SET end_time = #{end_time}
+        WHERE at_no = #{at_no}
+    </update>
 </mapper>
 
 

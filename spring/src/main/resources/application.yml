@@ -5,9 +5,13 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@localhost:1521:XE
-    username: amamranth
+    username: amaranth
     password: 1234
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: org.namaranth.domain
+
+token:
+  expiration_time: 86400000 # 하루
+  secret: user_token

@@ -9,7 +9,7 @@ const MailDelList = () =>{
     const [mails, setMails] = useState([]);
 
     const getMail = async () => {
-      await axios.get("http://localhost:8081/delmail").then((res) => {
+      await axios.get("/delmail").then((res) => {
         console.log(res.data);
         setMails(res.data);
       })

@@ -52,7 +52,7 @@ const GetTsMailPage = () =>{
            
         };
         
-        axios.post(`http://localhost:8081/register/${receiver_no}/${mailts_no}`, formData)
+        axios.post(`/register/${receiver_no}/${mailts_no}`, formData)
           .then((response) => {
             console.log("성공");
             window.location.href = "http://localhost:3000/email/all";

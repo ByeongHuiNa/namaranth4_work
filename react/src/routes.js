@@ -1,6 +1,5 @@
 import CalendarPage from "./page/CalendarPage";
 import MainPage from "./page/MainPage";
-import NoticePage from "./page/NoticePage";
 import AllMailPage from "./page/emailpage/AllMailPage";
 import SendMailPage from "./page/emailpage/SendMailPage";
 import ReceiveMailPage from "./page/emailpage/ReceiveMailPage";
@@ -15,7 +14,6 @@ import NoticeListPage from "./page/notice/NoticeListPage";
 import NoticeDetailPage from "./page/notice/NoticeDetailPage";
 import NoticeRegisterPage from "./page/notice/NoticeRegisterPage";
 import NoticeEditPage from "./page/notice/NoticeEditPage";
-import EmailPage from "./page/EmailPage";
 import AppPage from "./page/AppPage";
 
 

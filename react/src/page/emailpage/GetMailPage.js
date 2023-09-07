@@ -53,7 +53,7 @@ const GetMailPage = () =>{
         console.log("del");
        
         
-        axios.post(`http://localhost:8081/maildel`, mail.email)
+        axios.post(`/maildel`, mail.email)
           .then((response) => {
             console.log("성공");
             window.location.href = "http://localhost:3000/email/all";

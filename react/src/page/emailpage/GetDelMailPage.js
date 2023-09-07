@@ -44,7 +44,7 @@ const GetDelMailPage = () =>{
         console.log("restore");
        
         
-        axios.post(`http://localhost:8081/mailrestore`, mailNo, {
+        axios.post(`/mailrestore`, mailNo, {
             headers: {
               'Content-Type': 'application/json',
             }})

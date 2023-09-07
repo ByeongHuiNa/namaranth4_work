@@ -2,19 +2,6 @@ import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 
-<<<<<<< HEAD
-
-const Sidebar = () =>{
-    
-
-    
-
-    return (
-        <div>
-            
-            <nav className="pcoded-navbar  ">
-                <div className="navbar-wrapper  ">
-=======
 const Sidebar = () =>{
     const history = useHistory();
 
@@ -29,7 +16,6 @@ const Sidebar = () =>{
         <div className="setFont">
             <nav className="pcoded-navbar" style={{height:"1250px"}}>
                 <div className="navbar-wrapper">
->>>>>>> lyn
                     <div className="navbar-content scroll-div " >
                         <div className="">
                             <div className="main-menu-header" >

@@ -181,7 +181,7 @@ public class EmailController {
     @GetMapping("/getdelmail")
     public void getdelmail(@RequestParam("mail_no") int mail_no, Model model, Principal principal) {
         String user_email = principal.getName();
-        UsersVO VO = userService.getUser(user_email);
+        UsersVO VO = userService.getUserByEmail(user_email);
         model.addAttribute("user", VO);
         String deptName = userService.getDept(user_email);
         model.addAttribute("dept", deptName);

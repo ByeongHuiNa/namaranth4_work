@@ -164,24 +164,7 @@
         ]]>
    </select>
 
-    <!-- resultMap : DB 조회 결과를 객체 구조로 변환 -->
     <!-- 사용자 -->
-    <resultMap type="org.namaranth.domain.UsersVO" id="userMap">
-        <id property="user_no" column="user_no"/>
-        <result property="user_name" column="user_name"/>
-        <result property="user_birth" column="user_birth"/>
-        <result property="user_phone" column="user_phone"/>
-        <result property="user_position" column="user_position"/>
-        <result property="user_email" column="user_email"/>
-        <result property="user_pwd" column="user_pwd"/>
-        <result property="user_profile" column="user_profile"/>
-<!--        <collection property="authList" resultMap="authMap"></collection>-->
-        <collection property="dept" ofType="org.namaranth.domain.DeptVO">
-            <id column="dept_no" property="dept_no"/>
-            <result column="dept_name" property="dept_name"/>
-            <result column="dept_local" property="dept_local"/>
-        </collection>
-    </resultMap>
 
     <!-- 권한 -->
 <!--    <resultMap type="org.namaranth.domain.AuthVO" id="authMap">-->
@@ -225,39 +208,9 @@
 <!--        </collection>-->
 <!--    </resultMap>-->
 
-    <!-- 일정 -->
-    <resultMap type="org.namaranth.domain.ScheduleVO" id="scheduleMap">
-        <id property="sch_no" column="sch_no"/>
-        <result property="sch_name" column="sch_name"/>
-        <result property="sch_start" column="sch_start"/>
-        <result property="sch_end" column="sch_end"/>
-        <result property="sch_place" column="sch_place"/>
-        <result property="sch_noti" column="sch_noti"/>
-        <result property="sch_con" column="sch_con"/>
-        <result property="sch_allday" column="sch_allday"/>
-        <collection property="calendar" ofType="org.namaranth.domain.CalendarVO">
-            <id property="cal_no" column="cal_no"/>
-            <result property="user_no" column="user_no"/>
-            <result property="cal_name" column="cal_name"/>
-            <result property="cal_color" column="cal_color"/>
-            <result property="cal_noti" column="cal_noti"/>
-            <result property="cal_con" column="cal_con"/>
-        </collection>
-        <collection property="users" ofType="org.namaranth.domain.UsersVO">
-            <id property="user_no" column="user_no"/>
-            <result property="user_name" column="user_name"/>
-            <result property="user_birth" column="user_birth"/>
-        </collection>
-    </resultMap>
 
-    <select id="list" resultType="org.namaranth.domain.UsersVO">
-        select * from users
-    </select>
 
-    <select id="listUser" resultMap="userMap">
-        select d.dept_name, u.user_no, u.user_name, u.user_position, u.user_email from users u, dept d
-        where u.dept_no = d.dept_no
-    </select>
+
 
 
 

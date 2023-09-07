@@ -2,11 +2,6 @@ package org.namaranth.domain;
 
 import java.util.Date;
 
-<<<<<<< HEAD
-import lombok.Data;
-
-@Data
-=======
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
->>>>>>> jsg
 public class ScheduleVO {
 	private int sch_no;
 	private String sch_name;

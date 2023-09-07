@@ -1,0 +1,6 @@
+.doc-content-table {
+    border-collapse: collapse; /* 테이블 셀 병합 */
+    border: 1px solid #000;    /* 테이블 테두리 스타일 */
+    width: 900px;              /* 테이블 가로 폭 */
+    background-color: #eeeeee;
+}

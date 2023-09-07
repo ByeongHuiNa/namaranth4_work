@@ -1,24 +1,27 @@
 import {Link} from "react-router-dom";
 
-const Sidebar = () =>{
 
+const Sidebar = () =>{
+    
 
     
 
     return (
         <div>
+            
             <nav className="pcoded-navbar  ">
                 <div className="navbar-wrapper  ">
                     <div className="navbar-content scroll-div " >
 
                         <div className="">
-                            <div className="main-menu-header">
+                            <div className="main-menu-header" >
                                 <img className="img-radius" id="userprofile" src="" alt="User-Profile-Image" />
                                 <div className="user-details">
                                     <span id="username"></span>
                                     <div id="more-details"><i className="fa fa-chevron-down m-l-5"></i></div>
                                 </div>
                             </div>
+                            
                             <div className="collapse" id="nav-user-link">
                                 <ul className="list-unstyled">
                                     <li className="list-group-item"><Link to="user-profile.html"><i className="feather icon-user m-r-5"></i>마이페이지</Link></li>
@@ -33,7 +36,7 @@ const Sidebar = () =>{
                             </div>
                         </div>
 
-                        <ul className="nav pcoded-inner-navbar ">
+                        <ul className="nav pcoded-inner-navbar " >
                             <li className="nav-item pcoded-menu-caption">
                                 <label>Main</label>
                             </li>
@@ -47,19 +50,21 @@ const Sidebar = () =>{
                                 <label>E-mail</label>
                             </li>
                             <li className="nav-item">
-                                <Link to="/email/register" className="nav-link "><span className="pcoded-micon"><i className="bi bi-pencil-square" style={{color:"white"}}></i></span><span className="pcoded-mtext">메일작성</span></Link>
+                                <Link to="/email/register" className="nav-link "><span className="pcoded-micon"><i className="bi bi-pencil-square" style={{color:"white"}}></i></span><span className="pcoded-mtext">쪽지작성</span></Link>
                             </li>
                             <li className="nav-item pcoded-hasmenu">
-                                <a href="#!" className="nav-link "><span className="pcoded-micon"><i className="bi bi-envelope" style={{color:"white"}}></i></span><span className="pcoded-mtext">메일함</span></a>
-                                <ul className="pcoded-submenu">
-                                    <li><Link to="/email">전체메일함</Link></li>
-                                    <li><Link to="/email/receivemail">수신메일함</Link></li>
-                                    <li><Link to="/email/sendmail">발신메일함</Link></li>
-                                    <li><Link to="/email/tsmail">임시보관함</Link></li>
+                                <a href="#!" className="nav-link "><span className="pcoded-micon"><i className="bi bi-envelope" style={{color:"white"}}></i></span><span className="pcoded-mtext">쪽지함</span></a>
+                                
+                                <ul className="pcoded-submenu" style={{display:"block"}}>
+                                    
+                                    <li><Link to="/email/all">전체쪽지함</Link></li>
+                                    <li><Link to="/email/receive">수신쪽지함</Link></li>
+                                    <li><Link to="/email/send">발신쪽지함</Link></li>
+                                    <li><Link to="/email/ts">임시보관함</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <Link to="/email/delmail" className="nav-link "><span className="pcoded-micon"><i className="bi bi-trash2" style={{color:"white"}}></i></span><span className="pcoded-mtext">휴지통</span></Link>
+                                <Link to="/email/del" className="nav-link "><span className="pcoded-micon"><i className="bi bi-trash2" style={{color:"white"}}></i></span><span className="pcoded-mtext">휴지통</span></Link>
                             </li>
                             <li className="nav-item pcoded-menu-caption">
                                 <label>Schedule</label>

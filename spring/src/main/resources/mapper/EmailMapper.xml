@@ -4,6 +4,222 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.namaranth.mapper.EmailMapper">
+<!--    <resultMap type="org.namaranth.domain.EmailVO" id="emailMap">-->
+<!--        <id column="mail_no" property="mail_no"/>-->
+<!--        <result column="mail_title" property="mail_title"/>-->
+<!--        <result column="mail_content" property="mail_content"/>-->
+<!--        <result column="mail_regdate" property="mail_regdate"/>-->
+<!--        <collection property="user" ofType="org.namaranth.domain.UsersVO">-->
+<!--            <id column="user_no" property="user_no"/>-->
+<!--            <result column="user_name" property="user_name"/>-->
+<!--            <result column="user_birth" property="user_birth"/>-->
+<!--            <result column="user_phone" property="user_phone"/>-->
+<!--            <result column="user_position" property="user_position"/>-->
+<!--            <result column="user_email" property="user_email"/>-->
+<!--            <result column="user_pwd" property="user_pwd"/>-->
+<!--            <result column="user_profile" property="user_profile"/>-->
+<!--            <collection property="dept" ofType="org.namaranth.domain.DeptVO">-->
+<!--                <id column="dept_no" property="dept_no"/>-->
+<!--                <result column="dept_name" property="dept_name"/>-->
+<!--                <result column="dept_local" property="dept_local"/>-->
+<!--            </collection>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+
+<!--    <select id = "all" resultType="org.namaranth.domain.EmailVO">-->
+<!--        select * from mail-->
+<!--    </select>-->
+
+    <!--  <select id = "getAllList" resultType="org.namaranth.domain.EmailVO">
+        select u.user_name, m.mail_title, m.mail_regdate, m.mail_no, u.user_no, u.user_email, ur.user.email
+            FROM mail m
+                JOIN users u ON m.user_no = u.user_no
+                JOIN mail_rcver rcv ON m.mail_no = rcv.mail_no
+                JOIN users ur ON rcv.user_no = ur.user_no
+                where u.user_no = #{user_no} OR ur.user_no = #{user_no}
+    </select> -->
+
+    <!--  <select id = "getAllList" resultType="org.namaranth.domain.EmailVO">
+        SELECT u.user_email,
+           m.mail_title,
+           ur.user_email
+            FROM mail m
+            JOIN users u ON m.user_no = u.user_no
+            JOIN mail_rcver rcv ON m.mail_no = rcv.mail_no
+            JOIN users ur ON rcv.user_no = ur.user_no
+            WHERE u.user_no = #{user_no} OR ur.user_no = #{user_no}
+    </select>   -->
+
+    <!--  <select id = "getSendList" resultType="org.namaranth.domain.EmailVO">
+        select u.user_name, m.mail_title, m.mail_regdate, m.mail_no, u.user_no, u.user_email
+            from mail m, users u
+            where m.user_no = u.user_no
+            and u.user_no = #{user_no}
+    </select> -->
+
+    <!--  <select id = "getSendList" resultType="org.namaranth.domain.EmailVO">
+        SELECT m.user_no, u.user_email, m.mail_title, u_rcv.user_email, m.mail_regdate, m.mail_no
+            FROM mail m
+            JOIN users u ON m.user_no = u.user_no
+            JOIN mail_rcver mr ON m.mail_no = mr.mail_no
+            JOIN users u_rcv ON mr.user_no = u_rcv.user_no
+            where u.user_no = #{user_no}
+
+    </select> -->
+
+    <select id = "getSendList" resultType="org.namaranth.domain.EmailVO">
+        select u.user_name, m.mail_title, m.mail_regdate, m.mail_no, u.user_no, u.user_email
+        from mail m, users u
+        where m.user_no = u.user_no
+          and u.user_no = #{user_no}
+          and m.mail_no not in(
+            select mail_no
+            from mail_del
+        )
+        ORDER BY m.mail_no DESC
+    </select>
+
+
+
+    <select id = "getReceiveList" resultType="org.namaranth.domain.EmailVO">
+        select u.user_name, u.user_email, m.mail_no, m.mail_regdate, m.mail_title, m.mail_content, r.user_no
+        from mail m, mail_rcver r, users u
+        where m.mail_no = r.mail_no
+          and u.user_no = m.user_no
+          and r.user_no = #{user_no}
+          and m.mail_no not in(
+            select mail_no
+            from mail_del
+        )
+        ORDER BY m.mail_no DESC
+    </select>
+
+    <select id = "getDelList" resultType="org.namaranth.domain.EmailVO">
+        select m.mail_title, m.mail_regdate, md.user_no, md.mail_no, u.user_email, u.user_name
+        from mail_del md, mail m, users u
+        where md.mail_no = m.mail_no
+          and md.user_no = u.user_no
+          and md.user_no = #{user_no}
+        ORDER BY m.mail_no DESC
+    </select>
+
+    <!--  <select id="read" resultType="org.namaranth.domain.EmailVO">
+        SELECT
+            SENDER.user_name,
+            RECEIVER.user_email,
+            M.mail_title,
+            M.mail_content,
+            M.mail_regdate,
+            M.mail_no
+        FROM
+            mail M
+        JOIN
+            users SENDER ON M.user_no = SENDER.user_no
+        JOIN
+            mail_rcver RCVER ON M.mail_no = RCVER.mail_no
+        JOIN
+            users RECEIVER ON RCVER.user_no = RECEIVER.user_no
+        WHERE
+            M.mail_no = #{mail_no}
+
+    </select> -->
+
+
+    <select id="read" resultType="org.namaranth.domain.EmailVO">
+        SELECT u.user_name, m.mail_title, m.mail_regdate, m.mail_content, m.mail_no, u.user_email, u.user_no
+        from mail m, users u
+        where m.user_no = u.user_no
+          and mail_no = #{mail_no}
+    </select>
+
+    <select id="readts" resultType="org.namaranth.domain.EmailtsVO">
+        SELECT mt.mailts_no, mt.user_no, u.user_email, mt.mailts_title, mt.mailts_content, u.user_name
+        FROM mail_ts mt
+                 JOIN users u ON mt.user_no = u.user_no
+        WHERE mailts_no = #{mailts_no}
+
+    </select>
+
+
+    <select id="readReceiver" resultType="org.namaranth.domain.UsersVO">
+        select user_name, user_email
+        from mail_rcver mr, mail m, users u
+        where mr.mail_no = m.mail_no
+          and mr.user_no = u.user_no
+          and m.mail_no = #{mail_no}
+
+    </select>
+
+    <!--   <insert id="insert">
+         <selectKey keyProperty="mail_no" order="BEFORE" resultType="int">
+            select seq_mail.nextval from mail
+        </selectKey>
+
+        insert into mail (mail_no, user_no, mail_title, mail_content)
+            values(seq_mail.nextval, #{user_no}, #{mail_title}, #{mail_content})
+
+    </insert>
+    -->
+
+    <insert id="insert">
+        insert into mail (mail_no, user_no, mail_title, mail_content)
+        values(seq_mail.nextval, #{user_no}, #{mail_title}, #{mail_content})
+    </insert>
+
+    <insert id="insertReceiver">
+        insert into mail_rcver (mail_no, user_no)
+        values(seq_mail.currval, #{receiver_no})
+
+    </insert>
+
+    <insert id="tsinsert">
+
+        insert into mail_ts (mailts_no, user_no, mailts_title, mailts_content)
+        values(seq_mail_ts.nextval, #{user_no}, #{mail_title}, #{mail_content})
+
+
+
+    </insert>
+
+    <delete id="tsdelete">
+        DELETE FROM mail_ts
+        WHERE mailts_no = #{mailts_no}
+
+    </delete>
+
+    <delete id="mailRestore">
+        DELETE FROM mail_del
+        WHERE mail_no = #{mail_no}
+
+    </delete>
+
+    <!--  <select id="getTsList" resultType="org.namaranth.domain.EmailtsVO">
+        SELECT mt.user_no, u.user_email, mt.mailts_title, u_rcv.user_email, mt.mailts_no
+                FROM mail_ts mt
+                JOIN users u ON mt.user_no = u.user_no
+                JOIN mail_rcver mr ON mt.mailts_no = mr.mail_no
+                JOIN users u_rcv ON mr.user_no = u_rcv.user_no
+                where u.user_no = #{user_no}
+
+    </select> -->
+
+    <select id="getTsList" resultType="org.namaranth.domain.EmailtsVO">
+        SELECT mt.mailts_no, mt.user_no, u.user_email, mt.mailts_title, mt.mailts_content, mt.mailts_regdate, u.user_name
+        FROM mail_ts mt
+                 JOIN users u ON mt.user_no = u.user_no
+        WHERE u.user_no = #{user_no}
+        ORDER BY mt.mailts_no DESC
+    </select>
+
+
+
+    <insert id="mailDel">
+        insert into mail_del(maildel_no, user_no, mail_no)
+        values(seq_mail_del.nextval ,#{user_no}, #{mail_no})
+
+    </insert>
+
 
 
 
